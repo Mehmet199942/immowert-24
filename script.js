@@ -93,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('leadForm');
 
     if (form) {
-        // Set FormSubmit.co endpoint - REPLACE WITH YOUR EMAIL
-        form.action = 'https://formsubmit.co/YOUR_EMAIL@example.com';
+        // Set FormSubmit.co endpoint
+        form.action = 'https://formsubmit.co/mehmet.oezyildirim2@hotmail.com';
         form.method = 'POST';
 
         form.addEventListener('submit', function (e) {
