@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         form.method = 'POST';
 
         form.addEventListener('submit', function (e) {
-            e.preventDefault();
+            // Don't prevent default - let form submit naturally
 
             // Populate hidden fields
             document.getElementById('hiddenPropertyType').value = formData.propertyType;
@@ -116,33 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
             submitText.classList.add('hidden');
             submitLoader.classList.remove('hidden');
 
-            // Create FormData and submit
-            const formDataObj = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formDataObj,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet. Wir melden uns in Kürze.');
-                        closeFunnel();
-                    } else {
-                        throw new Error('Fehler beim Senden');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.');
-                })
-                .finally(() => {
-                    submitBtn.disabled = false;
-                    submitText.classList.remove('hidden');
-                    submitLoader.classList.add('hidden');
-                });
+            // Form will submit naturally to FormSubmit.co
         });
     }
 });
@@ -325,54 +299,13 @@ document.addEventListener('DOMContentLoaded', function () {
         fullFunnelForm.method = 'POST';
 
         fullFunnelForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            // Get values from radio buttons
-            const motivationQuery = document.querySelector('input[name="motivation"]:checked');
-            if (motivationQuery) document.getElementById('h-motivation').value = motivationQuery.value;
-
-            const timelineQuery = document.querySelector('input[name="timeline"]:checked');
-            if (timelineQuery) document.getElementById('h-timeline').value = timelineQuery.value;
-
-            // Submit logic
+            // Don't prevent default - let the form submit naturally
             const btn = document.getElementById('finalSubmitBtn');
-            const originalText = btn.innerText;
             btn.disabled = true;
             btn.innerText = "Wird gesendet...";
 
-            const formDataObj = new FormData(fullFunnelForm);
-
-            fetch(fullFunnelForm.action, {
-                method: 'POST',
-                body: formDataObj,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        // Success State
-                        document.querySelector('.funnel-card').innerHTML = `
-                        <div style="text-align: center; padding: 3rem 1rem;">
-                            <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
-                            <h2 style="font-size: 2rem; color: #1e293b; margin-bottom: 1rem; font-weight: bold;">Vielen Dank!</h2>
-                            <p style="color: #64748b; font-size: 1.1rem; margin-bottom: 2rem;">
-                                Wir haben Ihre Daten erhalten und erstellen Ihre individuelle Bewertung.<br>
-                                Sie hören in Kürze von uns.
-                            </p>
-                            <a href="index.html" class="btn-primary" style="text-decoration:none;">Zurück zur Startseite</a>
-                        </div>
-                    `;
-                    } else {
-                        throw new Error('Fehler beim Senden');
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert('Es gab ein Problem. Bitte versuchen Sie es erneut.');
-                    btn.disabled = false;
-                    btn.innerText = originalText;
-                });
+            // Form will submit naturally to FormSubmit.co
+            // FormSubmit will redirect to the thank you page we'll create
         });
     }
 });
